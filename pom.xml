@@ -1,0 +1,169 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.example</groupId>
+  <artifactId>AutomationPanda</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>AutomationPanda</name>
+  <description>Selenium Cucumber BDD Test Automation Framework</description>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <!-- Java Version -->
+    <java.version>17</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
+    
+    <!-- Encoding -->
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    
+    <!-- Dependency Versions -->
+    <selenium.version>4.39.0</selenium.version>
+    <cucumber.version>7.33.0</cucumber.version>
+    <webdrivermanager.version>6.3.3</webdrivermanager.version>
+    <junit.version>4.13.2</junit.version>
+    <junit5.version>5.10.1</junit5.version>
+    <testng.version>7.11.0</testng.version>
+    <slf4j.version>2.0.9</slf4j.version>
+    
+    <!-- Plugin Versions -->
+    <maven.compiler.plugin.version>3.11.0</maven.compiler.plugin.version>
+    <maven.surefire.plugin.version>3.2.2</maven.surefire.plugin.version>
+  </properties>
+
+  <dependencies>
+    <!-- ==================== Selenium ==================== -->
+    <!-- Source: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>${selenium.version}</version>
+    </dependency>
+    
+    <!-- ==================== Cucumber ==================== -->
+    <!-- Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    
+    <!-- Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-junit -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>${cucumber.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- Source: https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-testng</artifactId>
+      <version>${cucumber.version}</version>
+    </dependency>
+    
+    <!-- ==================== JUnit ==================== -->
+    <!-- Source: https://mvnrepository.com/artifact/junit/junit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- JUnit 5 (Jupiter) for assertions -->
+    <!-- Source: https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <version>${junit5.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- ==================== TestNG ==================== -->
+    <!-- Source: https://mvnrepository.com/artifact/org.testng/testng -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>${testng.version}</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <!-- ==================== WebDriverManager ==================== -->
+    <!-- Source: https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>${webdrivermanager.version}</version>
+    </dependency>
+    
+    <!-- ==================== Logging (SLF4J) ==================== -->
+    <!-- Source: https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>${slf4j.version}</version>
+    </dependency>
+    
+    <!-- Source: https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>${slf4j.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Maven Compiler Plugin -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven.compiler.plugin.version}</version>
+        <configuration>
+          <source>${java.version}</source>
+          <target>${java.version}</target>
+          <encoding>${project.build.sourceEncoding}</encoding>
+        </configuration>
+      </plugin>
+      
+      <!-- Maven Surefire Plugin for running tests -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven.surefire.plugin.version}</version>
+        <configuration>
+          <!-- Include test runner classes -->
+          <includes>
+            <include>**/TestRunner.java</include>
+            <include>**/*Runner.java</include>
+            <include>**/*Test.java</include>
+            <include>**/*Tests.java</include>
+          </includes>
+          
+          <!-- Test failure handling -->
+          <testFailureIgnore>false</testFailureIgnore>
+          
+          <!-- Parallel execution configuration (optional) -->
+          <!-- Uncomment to enable parallel execution -->
+          <!--
+          <parallel>methods</parallel>
+          <threadCount>4</threadCount>
+          <perCoreThreadCount>true</perCoreThreadCount>
+          -->
+          
+          <!-- System properties for tests -->
+          <systemPropertyVariables>
+            <cucumber.publish.quiet>true</cucumber.publish.quiet>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
